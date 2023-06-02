@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private new Camera camera;
     private Rigidbody2D rigid;
     private Vector2 velocity;
 
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        
+        camera = Camera.main;
     }
 
     void Update()
@@ -37,19 +38,18 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();   // 중력
     }
 
+    void FixedUpdate(){
+        LimitMovement();
+    }
+
     //#.플레이어 움직임
     void PlayerMovement()
     {
         // 좌우 움직임
         inputAxis = Input.GetAxisRaw("Horizontal");
-        velocity.x = inputAxis * moveSpeed;
+        velocity.x = inputAxis * moveSpeed;            
     
         rigid.velocity = velocity;
-
-        // 미끄러짐 방지 (땅에 붙어있을 때만)
-        if(inputAxis == 0 && grounded){
-            velocity.x = 0;
-        }
     }
 
     //#.바닥에 붙어있는 지 체크
@@ -98,5 +98,17 @@ public class PlayerController : MonoBehaviour
 
         velocity.y += gravity * multiplier * Time.deltaTime;
         velocity.y = Mathf.Max(velocity.y, gravity / 2f);
+    }
+
+    //#.움직임 제한하기(카메라)
+    void LimitMovement(){
+        Vector2 position = rigid.position;
+        position += velocity * Time.fixedDeltaTime;
+
+        Vector2 leftEdge = camera.ScreenToWorldPoint(Vector2.zero);
+        Vector2 rightEdge= camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        position.x = Mathf.Clamp(position.x, leftEdge.x + 0.5f, rightEdge.x - 0.5f);
+
+        rigid.MovePosition(position);
     }
 }
