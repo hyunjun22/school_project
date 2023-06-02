@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Taxi : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    Rigidbody2D rigid;
+
+    void Awake(){
+        rigid = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void OnCollisionEnter2D(Collision2D other){
+        if(other.gameObject.tag != "Ground")
+        {
+            Debug.Log("Stop");
+            rigid.velocity = Vector2.zero;
+        }
     }
 }

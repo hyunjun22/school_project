@@ -154,9 +154,9 @@ public class PlayerController : MonoBehaviour
 
     //#.치인다 (택시에)
     public void hit(Transform otherTrans){
-        collider.enabled = false;
         Untouchable = true;
         Rolling = true;
+        collider.enabled = false;
 
         // 날아가기
         velocity = new Vector2(-3f, -1f).normalized * hitForce;
@@ -164,6 +164,7 @@ public class PlayerController : MonoBehaviour
 
     //#.충돌
     void OnCollisionEnter2D(Collision2D other){
+        // 택시와 충돌
         if(other.gameObject.tag == "Taxi"){
             Debug.Log("taxi hit!");
             hit(other.transform);
