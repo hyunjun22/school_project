@@ -67,6 +67,14 @@ public class PlayerController : MonoBehaviour
         // 좌우 움직임
         inputAxis = Input.GetAxisRaw("Horizontal");
         velocity.x = inputAxis * moveSpeed;
+
+        // 좌우 움직임에 따라서 회전
+        if(velocity.x > 0f){
+            transform.eulerAngles = Vector3.zero;
+        }
+        else if(velocity.x < 0f) {
+            transform.eulerAngles = new Vector3(0, 180f, 0); // 180도 회전
+        }
     }
 
     //#.바닥에 붙어있는 지 체크
@@ -164,10 +172,19 @@ public class PlayerController : MonoBehaviour
 
     //#.충돌
     void OnCollisionEnter2D(Collision2D other){
-        // 택시와 충돌
+        // 택시와 충돌 시
         if(other.gameObject.tag == "Taxi"){
             Debug.Log("taxi hit!");
             hit(other.transform);
         }
+
+        // 공중에 있는 블럭과 충돌 시
+        if(transform.DotTest(other.transform, Vector2.up))
+        {
+            velocity.y = 0;
+        }
     }
+
+
+
 }
