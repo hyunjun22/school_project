@@ -30,9 +30,6 @@ public class PlayerController : MonoBehaviour
     //#.회전
     private float rotateValue = 0f;
 
-    //#.충돌 (택시)
-    public float hitForce;
-
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -58,6 +55,10 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate(){
+        // 언터처블 상태라면 밑에 함수들 전부 무시
+        if(Untouchable)
+            return;
+
         LimitMovement();
     }
 
@@ -155,19 +156,19 @@ public class PlayerController : MonoBehaviour
         if(!Rolling)
             return;
 
-        rotateValue += 200f * Time.deltaTime;
+        rotateValue += 250f * Time.deltaTime;
 
         transform.localEulerAngles = new Vector3(0, 0, rotateValue);
     }
 
     //#.치인다 (택시에)
-    public void hit(Transform otherTrans){
+    public void hit(float hitForce, Transform other){
         Untouchable = true;
         Rolling = true;
         collider.enabled = false;
 
         // 날아가기
-        velocity = new Vector2(-3f, -1f).normalized * hitForce;
+        velocity = transform.direction(other) * hitForce;
     }
 
     //#.충돌
@@ -175,14 +176,26 @@ public class PlayerController : MonoBehaviour
         // 택시와 충돌 시
         if(other.gameObject.tag == "Taxi"){
             Debug.Log("taxi hit!");
-            hit(other.transform);
+            hit(7f, other.transform);
+        }
+        
+        // 버스와 충돌 시
+        if(other.gameObject.tag == "Bus"){
+            Debug.Log("Bus hit!");
+            hit(2f, other.transform);
         }
 
         // 공중에 있는 블럭과 충돌 시
         if(transform.DotTest(other.transform, Vector2.up))
         {
+            // 택시와 버스는 제외
+            if(other.gameObject.tag == "Taxi" || other.gameObject.tag == "Bus")
+                return;
+
+            Debug.Log("air Block hit!");
             velocity.y = 0;
         }
+       
     }
 
 

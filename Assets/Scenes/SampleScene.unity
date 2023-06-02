@@ -1298,24 +1298,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &2014867534 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 492149020497425414, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
-  m_PrefabInstance: {fileID: 492149020900607048}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2014867538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014867534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c0802488b2a3e7459363b337dab4f24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  taxi_rigid: {fileID: 849078659}
 --- !u!1 &2025631695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,8 +1398,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.2}
-  m_Size: {x: 0.8, y: 1.6}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.8, y: 2}
   m_Direction: 0
 --- !u!50 &2025631699
 Rigidbody2D:
@@ -1457,7 +1439,6 @@ MonoBehaviour:
   jumping: 0
   Untouchable: 0
   Rolling: 0
-  hitForce: 5
 --- !u!1 &2117903984
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,7 +1539,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 492149020497425414, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
       propertyPath: m_Name
-      value: Walk_Enemy
+      value: Bus
+      objectReference: {fileID: 0}
+    - target: {fileID: 492149020497425414, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
+      propertyPath: m_TagString
+      value: Bus
+      objectReference: {fileID: 0}
+    - target: {fileID: 492149020497425415, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 492149020497425433, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
       propertyPath: m_RootOrder
@@ -1603,6 +1592,18 @@ PrefabInstance:
     - target: {fileID: 492149020497425433, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566838562822549877, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493801599870824872, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
+      propertyPath: distance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493801599870824872, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
+      propertyPath: walkSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 002eb5537ddab444aab7c9cfbadea481, type: 3}
