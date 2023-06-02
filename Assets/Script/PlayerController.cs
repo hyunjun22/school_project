@@ -6,12 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     private new Camera camera;
     private Rigidbody2D rigid;
+    private new CapsuleCollider2D collider;
     private Vector2 velocity;
 
     private float inputAxis;
     public float moveSpeed;     // 움직임 속도
     public bool grounded;       // 땅에 붙어있는지 안붙어있는지
     public bool jumping;        // 점프했는지 안했는지
+    public bool Untouchable;    // 건들지 못하는 상태
+    public bool Rolling;        // 회전 상태
 
     //#.레이캐스트 사용 변수
     private LayerMask layerMask;
@@ -19,19 +22,35 @@ public class PlayerController : MonoBehaviour
     private float distance = 0.85f;  // 거리
 
     //#.점프&중력 사용 변수
-    private float maxJumpHeight = 5f; // 최대 점프 거리
+    private float maxJumpHeight = 6f; // 최대 점프 거리
     private float maxJumpTime = 1f;   // 최대 점프 시간
     private float jumpForce => (2f * maxJumpHeight) / (maxJumpTime / 2f); // 점프 파워
     private float gravity => (-2f * maxJumpHeight) / Mathf.Pow((maxJumpTime / 2f), 2);
+    
+    //#.회전
+    private float rotateValue = 0f;
+
+    //#.충돌 (택시)
+    public float hitForce;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        collider = GetComponent<CapsuleCollider2D>();
         camera = Camera.main;
     }
 
     void Update()
-    {   
+    {
+        rigid.velocity = velocity; // 속도 반환하기
+
+
+        RollingMethod();  // 회전
+
+        // 언터처블 상태라면 밑에 함수들 전부 무시
+        if(Untouchable)
+            return;
+
         PlayerMovement(); // 플레이어 움직임
         GroundedCheck();  // 바닥에 붙었는 지 체크
         Jump();           // 점프
@@ -47,9 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         // 좌우 움직임
         inputAxis = Input.GetAxisRaw("Horizontal");
-        velocity.x = inputAxis * moveSpeed;            
-    
-        rigid.velocity = velocity;
+        velocity.x = inputAxis * moveSpeed;
     }
 
     //#.바닥에 붙어있는 지 체크
@@ -77,8 +94,8 @@ public class PlayerController : MonoBehaviour
     //#.점프
     void Jump(){
 
-        // 바닥에 붙어있지 않으면 실행X
-        if(!grounded)
+        // 바닥에 붙어있지 않으면 실행X or 건들지 못하는 상태면 실행X
+        if(!grounded || Untouchable)
             return;
 
         velocity.y = Mathf.Max(velocity.y, 0f); // 둘 중 큰 값을 반환한다.
@@ -93,6 +110,7 @@ public class PlayerController : MonoBehaviour
 
     //#.중력 적용
     void ApplyGravity(){
+
         bool falling = velocity.y < 0f || !Input.GetButton("Jump");
         float multiplier = falling ? 2f : 1f;
 
@@ -110,5 +128,45 @@ public class PlayerController : MonoBehaviour
         position.x = Mathf.Clamp(position.x, leftEdge.x + 0.5f, rightEdge.x - 0.5f);
 
         rigid.MovePosition(position);
+    }
+
+    //#.떨어지기
+    public void fall(float fallingSpeed){
+        Untouchable = true;
+        collider.enabled = false; // 캡슐 콜라이더 off
+        
+        // 속도 설정
+        velocity.x = 0f;
+        velocity.y = fallingSpeed;
+    }
+
+    //#.회전시키기
+    void RollingMethod(){
+        
+        // 회전 상태일 때만 실행
+        if(!Rolling)
+            return;
+
+        rotateValue += 200f * Time.deltaTime;
+
+        transform.localEulerAngles = new Vector3(0, 0, rotateValue);
+    }
+
+    //#.치인다 (택시에)
+    public void hit(Transform otherTrans){
+        collider.enabled = false;
+        Untouchable = true;
+        Rolling = true;
+
+        // 날아가기
+        velocity = new Vector2(-3f, -1f).normalized * hitForce;
+    }
+
+    //#.충돌
+    void OnCollisionEnter2D(Collision2D other){
+        if(other.gameObject.tag == "Taxi"){
+            Debug.Log("taxi hit!");
+            hit(other.transform);
+        }
     }
 }
