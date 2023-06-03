@@ -5,7 +5,9 @@ using UnityEngine;
 public class TaxiTrigger : MonoBehaviour
 {
     PlayerController playercontroller;
-    public Rigidbody2D taxi_rigid;
+    public Rigidbody2D Trap_rigid; // 함정의 리지드바디
+    public Vector2 direction; // 방향
+    public float Force;       // 힘의 크기
 
     void Awake()
     {
@@ -18,8 +20,8 @@ public class TaxiTrigger : MonoBehaviour
         // 플레이어와 부딪힐 때만 실행
         if(other.gameObject.tag == "Player")
         {
-            taxi_rigid.gameObject.SetActive(true);
-            taxi_rigid.velocity = new Vector2(-20f, 0);
+            Trap_rigid.gameObject.SetActive(true);
+            Trap_rigid.velocity = direction * Force;
         }
 
     }

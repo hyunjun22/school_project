@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
         // 버스와 충돌 시
         if(other.gameObject.tag == "Bus"){
             Debug.Log("Bus hit!");
-            hit(2f, other.transform);
+            hit(3f, other.transform);
         }
 
         // 공중에 있는 블럭과 충돌 시

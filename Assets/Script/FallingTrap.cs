@@ -7,7 +7,7 @@ public class FallingTrap : MonoBehaviour
     PlayerController playercontroller;
     public Rigidbody2D Stairs; // °è´Ü
 
-    void Start()
+    void Awake()
     {
         playercontroller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
