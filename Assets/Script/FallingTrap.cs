@@ -5,7 +5,8 @@ using UnityEngine;
 public class FallingTrap : MonoBehaviour
 {
     PlayerController playercontroller;
-    public Rigidbody2D Stairs; // 계단
+    public Rigidbody2D FallingObject; // 계단
+    public float fallingSpeed;
 
     void Awake()
     {
@@ -18,9 +19,8 @@ public class FallingTrap : MonoBehaviour
         // 플레이어와 부딪힐 때만 실행
         if(other.gameObject.tag == "Player")
         {
-            float fallingSpeed = -20f;
-            playercontroller.fall(fallingSpeed);
-            Stairs.velocity = new Vector2(0, fallingSpeed);
+            playercontroller.fall(fallingSpeed * -1f);
+            FallingObject.velocity = new Vector2(0, fallingSpeed * -1f);
         }
 
     }
