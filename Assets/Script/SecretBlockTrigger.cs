@@ -24,6 +24,9 @@ public class SecretBlockTrigger : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            if(!transform.DotTest(other.transform, Vector2.down))
+                return;
+
             collider.enabled = true;
             renderer.enabled = true;
         }
