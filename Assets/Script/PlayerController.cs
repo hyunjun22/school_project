@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigid;
     private new CapsuleCollider2D collider;
     private Vector2 velocity;
+    private Animator animator;
 
     private float inputAxis;
     public float moveSpeed;     // 움직임 속도
@@ -30,10 +31,15 @@ public class PlayerController : MonoBehaviour
     //#.회전
     private float rotateValue = 0f;
 
+    //#.애니메이션
+    float ani_move;
+    float ani_velocity = 1;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
+        animator = GetComponent<Animator>();
         camera = Camera.main;
     }
 
@@ -197,6 +203,7 @@ public class PlayerController : MonoBehaviour
         }
        
     }
+
 
 
 
