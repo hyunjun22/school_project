@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4937189219085342942}
   - component: {fileID: 5396119454919030954}
   m_Layer: 0
-  m_Name: pngwing.com
+  m_Name: pngwing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

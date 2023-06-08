@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public bool Untouchable;    // 건들지 못하는 상태
     public bool Rolling;        // 회전 상태
     public bool moving;         // 움직이고 있는지
+    public bool defaultHit;     // 무엇에 부딪혔는지
 
     //#.레이캐스트 사용 변수
     private LayerMask layerMask;
@@ -42,6 +43,12 @@ public class PlayerController : MonoBehaviour
         collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
         camera = Camera.main;
+    }
+
+    void Start()
+    {
+        grounded = true;
+        defaultHit = true;
     }
 
     void Update()
@@ -101,7 +108,9 @@ public class PlayerController : MonoBehaviour
         Debug.DrawLine(startLine, endLine, Color.red, 0.1f);
 
         // hitCircle은 OnCollider2D에서 사용
-        if(!hitCircle.collider){
+        if(hitCircle.collider && defaultHit){
+            grounded = true;
+        } else {
             grounded = false;
         }
     }
@@ -202,12 +211,14 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0;
         }
 
-        // 바닥과 충돌
-        if(hitCircle.collider)
-        {
-            grounded = true;
-        }
+        // 충돌체크
+        defaultHit = true; // 무언가에 부딪혔다.
        
+    }
+
+    //#.충돌에서 벗어남
+    void OnCollisionExit2D(Collision2D other){
+        defaultHit = false;
     }
 
     void PlayerAnimation()
