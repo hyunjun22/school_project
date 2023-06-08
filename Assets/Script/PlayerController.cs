@@ -12,10 +12,13 @@ public class PlayerController : MonoBehaviour
 
     private float inputAxis;
     public float moveSpeed;     // 움직임 속도
+
+    //#.상태
     public bool grounded;       // 땅에 붙어있는지 안붙어있는지
     public bool jumping;        // 점프했는지 안했는지
     public bool Untouchable;    // 건들지 못하는 상태
     public bool Rolling;        // 회전 상태
+    public bool moving;         // 움직이고 있는지
 
     //#.레이캐스트 사용 변수
     private LayerMask layerMask;
@@ -32,9 +35,6 @@ public class PlayerController : MonoBehaviour
     //#.회전
     private float rotateValue = 0f;
 
-    //#.애니메이션
-    float ani_move;
-    float ani_velocity = 1;
 
     void Awake()
     {
@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
         GroundedCheck();  // 바닥에 붙었는 지 체크
         Jump();           // 점프
         ApplyGravity();   // 중력
+        PlayerAnimation();
     }
 
     void FixedUpdate(){
@@ -83,6 +84,8 @@ public class PlayerController : MonoBehaviour
         else if(velocity.x < 0f) {
             transform.eulerAngles = new Vector3(0, 180f, 0); // 180도 회전
         }
+
+        
     }
 
     //#.바닥에 붙어있는 지 체크
@@ -207,7 +210,16 @@ public class PlayerController : MonoBehaviour
        
     }
 
+    void PlayerAnimation()
+    {
+        // moving 세팅 (움직이고 있는 지 아닌 지)
+        if(velocity.x < 0.01f && velocity.x > -0.01f)
+            moving = false;
+        else
+            moving = true;
 
+        animator.SetBool("moving", moving);
+    }
 
 
 }
