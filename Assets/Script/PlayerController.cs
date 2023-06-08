@@ -19,8 +19,9 @@ public class PlayerController : MonoBehaviour
 
     //#.레이캐스트 사용 변수
     private LayerMask layerMask;
-    private float radius = 0.25f;    // 반지름 길이(원)
-    private float distance = 0.85f;  // 거리
+    private RaycastHit2D hitCircle;
+    private float radius = 0.1f;    // 반지름 길이(원)
+    private float distance = 0.75f;  // 거리
 
     //#.점프&중력 사용 변수
     private float maxJumpHeight = 6f; // 최대 점프 거리
@@ -89,20 +90,16 @@ public class PlayerController : MonoBehaviour
     {
         // 레이캐스트로 바닥과 충돌 감지
         layerMask = LayerMask.GetMask("ground");
-        RaycastHit2D hit = Physics2D.CircleCast(rigid.position, radius, Vector2.down, distance, layerMask);
+        hitCircle = Physics2D.CircleCast(rigid.position, radius, Vector2.down, distance, layerMask);
 
         // 레이캐스트 범위 시각적으로 표시하기
         Vector3 startLine = new Vector3(rigid.position.x, rigid.position.y - distance + radius, 0);
         Vector3 endLine   = new Vector3(rigid.position.x, rigid.position.y - distance - radius, 0);
         Debug.DrawLine(startLine, endLine, Color.red, 0.1f);
 
-        // 바닥 충돌
-        if(hit.collider){
-            grounded = true;
-        }            
-        else
-        {
-            grounded = false; 
+        // hitCircle은 OnCollider2D에서 사용
+        if(!hitCircle.collider){
+            grounded = false;
         }
     }
 
@@ -200,6 +197,12 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("air Block hit!");
             velocity.y = 0;
+        }
+
+        // 바닥과 충돌
+        if(hitCircle.collider)
+        {
+            grounded = true;
         }
        
     }
