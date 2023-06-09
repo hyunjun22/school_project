@@ -211,9 +211,13 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0;
         }
 
+       
+    }
+
+    //#.충돌 중일 때
+    void OnCollisionStay2D(Collision2D other) {
         // 충돌체크
         defaultHit = true; // 무언가에 부딪혔다.
-       
     }
 
     //#.충돌에서 벗어남
