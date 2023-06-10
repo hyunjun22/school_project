@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public int stage {get; private set;}
     public int lives {get; private set;}
 
-    public Vector2 SpawnPoint; // 시작 위치
+    public Vector2 SpawnPoint = new Vector2(-9.5f, 2f); // 시작 위치
 
     private void Awake()
     {

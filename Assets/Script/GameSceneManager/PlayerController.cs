@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
     {
         grounded = true;
         defaultHit = true;
+
+        transform.position = GameManager.Instance.SpawnPoint;
     }
 
     void Update()
@@ -59,8 +61,10 @@ public class PlayerController : MonoBehaviour
         RollingMethod();  // 회전
 
         // 언터처블 상태라면 밑에 함수들 전부 무시
-        if(Untouchable)
+        if(Untouchable){
+            
             return;
+        }
 
         PlayerMovement(); // 플레이어 움직임
         GroundedCheck();  // 바닥에 붙었는 지 체크
@@ -198,6 +202,17 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.tag == "Bus"){
             Debug.Log("Bus hit!");
             hit(3f, other.transform);
+        }
+
+        // 가짜버스와 충돌 시
+        if(other.gameObject.tag == "FakeBus"){
+            // 가짜버스 밟을 시
+            if(transform.DotTest(other.transform, Vector2.down)){
+                velocity.y = jumpForce * 1.3f;
+                jumping = true; // 점프함
+            } else {
+                hit(3f, other.transform);
+            }
         }
 
         // 공중에 있는 블럭과 충돌 시

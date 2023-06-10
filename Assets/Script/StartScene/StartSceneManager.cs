@@ -24,7 +24,7 @@ public class StartSceneManager : MonoBehaviour
     void MoveLogo()
     {
         // 로고 움직임 완료될 시
-        if(Logo.position.y > 0){
+        if(Logo.position.y > 1){
             FadeOut();        
             return;
         }

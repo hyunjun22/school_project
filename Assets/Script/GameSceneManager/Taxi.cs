@@ -15,6 +15,7 @@ public class Taxi : MonoBehaviour
         {
             Debug.Log("Stop");
             rigid.velocity = Vector2.zero;
+            this.gameObject.tag = "Untagged"; // 태그를 변경한다.
         }
     }
 }

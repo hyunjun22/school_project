@@ -8,7 +8,6 @@ public class Bus : MonoBehaviour
     float startline, endline;
     public float walkSpeed; // 걷는 속도
     public float distance;  // 거리
-    public bool fake;       // 가짜인지
 
     float currentX;
     Vector2 direction; // 방향
@@ -21,9 +20,6 @@ public class Bus : MonoBehaviour
     void Start(){
         rigid.velocity = Vector2.left * walkSpeed;
         currentX = transform.position.x;
-
-        if(fake)
-            this.gameObject.tag = "FakeBus";
     }
 
     void Update()
