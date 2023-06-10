@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviour
     //#.회전
     private float rotateValue = 0f;
 
+    //#.죽음
+    public GameObject gameover;
+
 
     void Awake()
     {
@@ -51,6 +54,7 @@ public class PlayerController : MonoBehaviour
         defaultHit = true;
 
         transform.position = GameManager.Instance.SpawnPoint;
+        gameover.SetActive(false);
     }
 
     void Update()
@@ -62,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
         // 언터처블 상태라면 밑에 함수들 전부 무시
         if(Untouchable){
-            
+            Dead();
             return;
         }
 
@@ -188,6 +192,11 @@ public class PlayerController : MonoBehaviour
 
         // 날아가기
         velocity = transform.direction(other) * hitForce;
+    }
+
+    //#.죽음
+    void Dead(){
+        gameover.SetActive(true);
     }
 
     //#.충돌

@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class SaveFlag : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int CheckpointValue;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void OnTriggerEnter2D(Collider2D other) {
+        // 플레이어와 닿을 시
+        if(other.gameObject.tag == "Player")
+        {
+            Debug.Log("save!");
+            GameManager.Instance.CheckpointSet(CheckpointValue);
+        }    
     }
 }

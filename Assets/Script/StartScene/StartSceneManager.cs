@@ -13,6 +13,7 @@ public class StartSceneManager : MonoBehaviour
     void Awake()
     {
         LogoSpr = Logo.gameObject.GetComponent<SpriteRenderer>();
+        GameManager.Instance.CheckpointSet(0); // 체크포인트 초기화
     }
 
     void Update()
