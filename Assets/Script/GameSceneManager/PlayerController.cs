@@ -254,6 +254,13 @@ public class PlayerController : MonoBehaviour
         defaultHit = false;
     }
 
+    //#.트리거와 충돌
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag == "Thorn"){
+            hit(4f, other.transform);
+        }
+    }
+
     //#.애니메이션
     void PlayerAnimation()
     {

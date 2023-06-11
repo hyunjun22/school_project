@@ -8,6 +8,7 @@ TagManager:
   - Taxi
   - Bus
   - FakeBus
+  - Thorn
   layers:
   - Default
   - TransparentFX
