@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public int lives {get; private set;}
 
     [HideInInspector] public Vector2 SpawnPoint; // 시작 위치
-    private int Checkpoint;   // 체크 포인트 위치값
+    private int Checkpoint; // 체크 포인트 위치값
 
     private void Awake()
     {
@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
                 SpawnPoint = new Vector2(75f, 2f);
                 break;
         }
+    }
+
+    public int GetCheckpoint()
+    {
+        return Checkpoint;
     }
 
     public void StartSceneLoad(){

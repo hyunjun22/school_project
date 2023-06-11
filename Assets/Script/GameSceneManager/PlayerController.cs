@@ -64,6 +64,11 @@ public class PlayerController : MonoBehaviour
 
         RollingMethod();  // 회전
 
+        // 만약 
+        if(transform.position.y < -10f){
+            Dead();    
+        }
+
         // 언터처블 상태라면 밑에 함수들 전부 무시
         if(Untouchable){
             Dead();
@@ -249,6 +254,7 @@ public class PlayerController : MonoBehaviour
         defaultHit = false;
     }
 
+    //#.애니메이션
     void PlayerAnimation()
     {
         // moving 세팅 (움직이고 있는 지 아닌 지)
