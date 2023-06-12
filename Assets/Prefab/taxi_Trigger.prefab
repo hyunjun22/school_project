@@ -142,17 +142,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: taxi
       objectReference: {fileID: 0}
-    - target: {fileID: 492149020497425414, guid: aaaf97b923df0b54297950d51737804b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 492149020497425433, guid: aaaf97b923df0b54297950d51737804b, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 492149020497425433, guid: aaaf97b923df0b54297950d51737804b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 492149020497425433, guid: aaaf97b923df0b54297950d51737804b, type: 3}
       propertyPath: m_LocalPosition.y

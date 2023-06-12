@@ -5,9 +5,15 @@ using UnityEngine;
 public class Taxi : MonoBehaviour
 {
     Rigidbody2D rigid;
+    AudioSource audiosound;
 
     void Awake(){
         rigid = GetComponent<Rigidbody2D>();
+        audiosound = GetComponent<AudioSource>();
+    }
+
+    void OnEnable() {
+        audiosound.volume = GameManager.Instance.effectSoundValue;
     }
 
     void OnCollisionEnter2D(Collision2D other){

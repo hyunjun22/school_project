@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour
     //#.죽음
     public GameObject gameover;
 
+    //#.사운드
+    private AudioSource myAudio;
+    public AudioClip die_effect;
+    public AudioClip falleffect;
+
 
     void Awake()
     {
@@ -46,6 +51,7 @@ public class PlayerController : MonoBehaviour
         collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
         camera = Camera.main;
+        myAudio = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -175,6 +181,9 @@ public class PlayerController : MonoBehaviour
         // 속도 설정
         velocity.x = 0f;
         velocity.y = fallingSpeed;
+
+        // 오디오
+        AudioPlay(falleffect);
     }
 
     //#.회전시키기
@@ -197,6 +206,9 @@ public class PlayerController : MonoBehaviour
 
         // 날아가기
         velocity = transform.direction(other) * hitForce;
+
+        // 오디오
+        AudioPlay(die_effect);
     }
 
     //#.죽음
@@ -273,5 +285,8 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("moving", moving);
     }
 
-
+    void AudioPlay(AudioClip clip){
+        myAudio.clip = clip;
+        myAudio.Play();
+    }
 }

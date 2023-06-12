@@ -374,6 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPoint: {x: -9.5, y: 2}
+  soundValue: 0
 --- !u!4 &4144310
 Transform:
   m_ObjectHideFlags: 0

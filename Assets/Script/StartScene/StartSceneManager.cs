@@ -14,11 +14,17 @@ public class StartSceneManager : MonoBehaviour
     {
         LogoSpr = Logo.gameObject.GetComponent<SpriteRenderer>();
         GameManager.Instance.CheckpointSet(0); // 체크포인트 초기화
+        GameManager.Instance.bgmSoundValue = 1;   // 사운드 1로 초기화
+        GameManager.Instance.effectSoundValue = 1;
     }
 
     void Update()
     {
         MoveLogo();
+
+        if(Input.GetKeyDown(KeyCode.Space)){
+            GameManager.Instance.GameSceneLoad();
+        }
     }
 
     //#.로고 움직이기

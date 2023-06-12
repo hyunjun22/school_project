@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public Vector2 SpawnPoint; // 시작 위치
     private int Checkpoint; // 체크 포인트 위치값
+    public float bgmSoundValue; // 배경음악 사운드 크기
+    public float effectSoundValue; // 효과음 사운드 크기
 
     private void Awake()
     {

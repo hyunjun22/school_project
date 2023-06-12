@@ -10,6 +10,11 @@ public class SaveFlag : MonoBehaviour
     float Height; // 높이
     float maxHeight => 1.25f + this.transform.position.y; // 최고높이
     float minHeight => -2f   + this.transform.position.y; // 최저높이
+    public AudioSource myAudio;
+
+    void Awake(){
+        myAudio = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -37,6 +42,12 @@ public class SaveFlag : MonoBehaviour
         // 플레이어와 닿을 시
         if(other.gameObject.tag == "Player")
         {
+            // 오디오
+            if(!isSave){
+                myAudio.volume = GameManager.Instance.effectSoundValue;
+                myAudio.Play();
+            }
+
             Debug.Log("save!");
             GameManager.Instance.CheckpointSet(CheckpointValue);
             isSave = true;
