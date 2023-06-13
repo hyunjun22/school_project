@@ -49,6 +49,5 @@ public class StartSceneManager : MonoBehaviour
 
         fadeCount -= 0.2f * Time.deltaTime;
         background.color = new Color(0,0,0, fadeCount);
-        LogoSpr.color    = new Color(1,1,1, fadeCount);
     }
 }
