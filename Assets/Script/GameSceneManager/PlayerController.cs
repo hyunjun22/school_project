@@ -59,7 +59,10 @@ public class PlayerController : MonoBehaviour
         grounded = true;
         defaultHit = true;
 
-        transform.position = GameManager.Instance.SpawnPoint;
+        Vector2 spawnPoint = GameManager.Instance.SpawnPoint;
+
+        camera.transform.position = new Vector3(spawnPoint.x, 1,-10);
+        transform.position = spawnPoint;
         gameover.SetActive(false);
     }
 

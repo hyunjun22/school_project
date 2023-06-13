@@ -57,4 +57,8 @@ public class GameManager : MonoBehaviour
     public void DeadSceneLoad(){
         SceneManager.LoadScene("DeathScene");
     }
+
+    public void EndingSceneLoad(){
+        SceneManager.LoadScene("EndingScene");
+    }
 }

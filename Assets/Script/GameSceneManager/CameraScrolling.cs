@@ -17,6 +17,10 @@ public class CameraScrolling : MonoBehaviour
         playerCon = player.gameObject.GetComponent<PlayerController>();
     }
 
+    void Start(){
+        transform.position = new Vector3(player.position.x, transform.position.y, -10);
+    }
+
     void LateUpdate()
     {
         if(playerCon.Untouchable)

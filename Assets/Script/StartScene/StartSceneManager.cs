@@ -43,7 +43,6 @@ public class StartSceneManager : MonoBehaviour
         // 페이드 아웃 종료 시
         if(fadeCount < 0){
             background.gameObject.SetActive(false);
-            Logo.gameObject.SetActive(false);
             return;
         }
 

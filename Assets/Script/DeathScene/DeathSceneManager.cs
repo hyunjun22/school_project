@@ -7,7 +7,6 @@ public class DeathSceneManager : MonoBehaviour
 
     float timer = 3f;
     public TextMeshProUGUI text;
-    public TextAsset font;
 
     void Update()
     {
