@@ -26,7 +26,9 @@ public class CameraScrolling : MonoBehaviour
         Vector3 cameraPosition = transform.position;
         cameraPosition.x = player.position.x;
 
+        // 리미트 정하기
         cameraPosition.x = cameraPosition.x > limit_left ? cameraPosition.x : limit_left;
+        cameraPosition.x = cameraPosition.x < limit_right ? cameraPosition.x : limit_right;
 
         // 반환
         transform.position = cameraPosition;
